@@ -1,28 +1,64 @@
-import { useState } from 'react';
-import { View } from 'react-native';
-import { MENUITEMS } from '../shared/menuitems';
 import MenuItemInfoScreen from './MenuItemInfoScreen';
 import MenuScreen from './MenuScreen';
+import HomeScreen from './HomeScreen';
+import { Platform, View } from 'react-native';
+import Constants from 'expo-constants';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Text } from 'react-native-elements';
+
+const Tabs = createMaterialTopTabNavigator();
+
+const screenOptions = {
+      headerTintColor: '#fff',
+      headerStyle: { backgroundColor: '#0a0908' }
+};
+
+
+const MenuNavigator = () => {
+      const Stack = createStackNavigator();
+
+      return (
+            <Stack.Navigator
+                  initialRouteName='Menu'
+                  screenOptions={{
+                        headerMode: 'screen'
+                  }}
+            >
+                  <Stack.Screen
+                        name='Menu'
+                        component={MenuScreen}
+                        options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                        name='MenuItem'
+                        component={MenuItemInfoScreen}
+                        screenOptions={screenOptions}
+                        options={({ route }) => ({
+                              title: route.params.menuItem.name
+                        })}
+                  />
+            </Stack.Navigator>
+      );
+};
 
 const Main = () => {
-    const [menuItems, setMenuItems] = useState(MENUITEMS);
-    const [selectedMenuItemId, setSelectedMenuItemId] = useState();
+      return (
+            <View
+                  style={{
+                        flex: 1,
+                        paddingTop:
+                              Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
+                  }}
+            >
+                  <Tabs.Navigator initialRouteName='Home'>
+                        <Tabs.Screen name='Home' component={HomeScreen} />
+                        <Tabs.Screen name='Menu' component={MenuNavigator} />
+                  </Tabs.Navigator>
 
-    return (
-        <View style={{ flex: 1 }}>
-            <MenuScreen
-                menuItems={menuItems}
-                onPress={(menuItemId) => setSelectedMenuItemId(menuItemId)}
-            />
-            <MenuItemInfoScreen
-                menuItem={
-                    menuItems.filter(
-                        (menuItem) => menuItem.id === selectedMenuItemId
-                    )[0]
-                }
-            />
-        </View>
-    );
+
+            </View>
+      );
 };
 
 export default Main;

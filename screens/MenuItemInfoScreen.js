@@ -1,7 +1,8 @@
 import RenderMenuItem from '../features/menuItems/RenderMenuItem';
 
-const MenuItemInfoScreen = (props) => {
-    return <RenderMenuItem menuItem={props.menuItem} />;
+const MenuItemInfoScreen = ({ route }) => {
+    const { menuItem } = route.params;
+    return <RenderMenuItem menuItem={menuItem} />;
 };
 
 export default MenuItemInfoScreen;
