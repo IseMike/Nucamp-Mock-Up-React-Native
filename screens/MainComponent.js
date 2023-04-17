@@ -1,11 +1,14 @@
 import MenuItemInfoScreen from './MenuItemInfoScreen';
 import MenuScreen from './MenuScreen';
 import HomeScreen from './HomeScreen';
+import CartScreen from './CartScreen';
+import ContactScreen from './ContactScreen';
 import { Platform, View } from 'react-native';
 import Constants from 'expo-constants';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Text } from 'react-native-elements';
+
 
 const Tabs = createMaterialTopTabNavigator();
 
@@ -54,6 +57,8 @@ const Main = () => {
                   <Tabs.Navigator initialRouteName='Home'>
                         <Tabs.Screen name='Home' component={HomeScreen} />
                         <Tabs.Screen name='Menu' component={MenuNavigator} />
+                        <Tabs.Screen name='Cart' component={CartScreen} />
+                        <Tabs.Screen name='Contact' component={ContactScreen} />
                   </Tabs.Navigator>
 
 
