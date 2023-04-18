@@ -5,7 +5,7 @@ export const MENUITEMS = [
             image: require('../assets/img/burger.jpg'),
             description:
                   'Mouth-Watering 100% beef patty with swiss topped with mushrooms and onions.',
-            quantity: 0
+            quantity: 2
       },
       {
             id: 1,
