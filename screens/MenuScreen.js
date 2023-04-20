@@ -5,6 +5,7 @@ import { MENUITEMS } from '../shared/menuitems'
 
 const MenuScreen = ({ navigation }) => {
       const [menuItems, setMenuItems] = useState(MENUITEMS);
+      console.log('Inside of the MenuScreen: ', menuItems);
 
       const renderMenuItem = ({ item: menuItem }) => {
             return (
