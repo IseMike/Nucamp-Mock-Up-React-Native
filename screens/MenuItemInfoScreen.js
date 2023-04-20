@@ -1,22 +1,33 @@
 import RenderMenuItem from '../features/menuItems/RenderMenuItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const MenuItemInfoScreen = ({ route }) => {
       const { menuItem } = route.params;
-      const [quantity, setQuantity] = useState(menuItem.quantity);
-      console.log(quantity);
+      const [currentMenuItem, setMenuItem] = useState(menuItem);
 
-      if(quantity < 0) {
-            setQuantity(0);
-      }
-      menuItem.quantity = quantity;
-      console.log(menuItem);
+      console.log(currentMenuItem)
+
+      const increaseQuantity = () => {
+            setMenuItem(prevMenuItem => ({
+                  ...prevMenuItem,
+                  quantity: prevMenuItem.quantity + 1
+            }));
+      };
+
+      const decreaseQuantity = () => {
+            if (currentMenuItem.quantity > 0) {
+                  setMenuItem(prevMenuItem => ({
+                        ...prevMenuItem,
+                        quantity: prevMenuItem.quantity - 1
+                  }));
+            };
+      };
+
       return (
             <RenderMenuItem
                   menuItem={menuItem}
-                  noQuantity={quantity}
-                  increaseQuantity={() => setQuantity(quantity+1)}
-                  decreaseQuantity={() => setQuantity(quantity-1)}
+                  increaseQuantity={increaseQuantity}
+                  decreaseQuantity={decreaseQuantity}
             />
       );
 };

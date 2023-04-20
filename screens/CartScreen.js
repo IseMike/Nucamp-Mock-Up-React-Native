@@ -5,8 +5,11 @@ import { MENUITEMS } from '../shared/menuitems'
 
 const CartScreen = () => {
       const [menuItems, setMenuItems] = useState(MENUITEMS);
+
       const renderMenuItem = ({ item: menuItem }) => {
+            console.log('Checking: ', menuItem);
             if (menuItem.quantity > 0) {
+                  console.log(`Adding ${menuItem} to page`);
                   return (
                         <Card containerStyle={{ padding: 0 }}>
                               <Card.Image source={menuItem.image}>
@@ -27,6 +30,7 @@ const CartScreen = () => {
                   );
             }
       };
+      console.log('--------------------------------');
       return (
             <FlatList
                   data={menuItems}
