@@ -1,11 +1,10 @@
 import { FlatList } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
-import { useState } from 'react';
-import { MENUITEMS } from '../shared/menuitems'
+import { useSelector } from 'react-redux';
+import { selectAllMenuItems } from '../features/cart/cartSlice';
 
 const MenuScreen = ({ navigation }) => {
-      const [menuItems, setMenuItems] = useState(MENUITEMS);
-      console.log('Inside of the MenuScreen: ', menuItems);
+      const menuItems = useSelector(selectAllMenuItems);
 
       const renderMenuItem = ({ item: menuItem }) => {
             return (

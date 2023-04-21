@@ -7,8 +7,6 @@ import { Platform, View } from 'react-native';
 import Constants from 'expo-constants';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MENUITEMS } from '../shared/menuitems';
-import { useState } from 'react';
 
 const Tabs = createMaterialTopTabNavigator();
 
@@ -20,26 +18,6 @@ const screenOptions = {
 
 const MenuNavigator = () => {
       const Stack = createStackNavigator();
-
-      const [menuItems, setMenuItems] = useState(MENUITEMS);
-
-      menuItems.forEach((item) => {
-            console.log(item)
-      });
-      console.log('--------------------------------------------------------------------------------------');
-
-      const updateMenuItem = (updatedMenuItem) => {
-            console.log(`Updating ${updatedMenuItem.name} with quantity ${updatedMenuItem.quantity}`);
-            const updatedMenuItems = menuItems.map((menuItem) => {
-                  if (menuItem.id === updatedMenuItem.id) {
-                        return {...menuItem, ...updatedMenuItem};
-                  }
-                  return menuItem;
-            });
-            setMenuItems(updatedMenuItems);
-      };
-      
-
 
       return (
             <Stack.Navigator
@@ -60,7 +38,6 @@ const MenuNavigator = () => {
                         options={({ route }) => ({
                               title: route.params.menuItem.name
                         })}
-                        initialParams={{ updateMenuItem }}
                   />
             </Stack.Navigator>
       );

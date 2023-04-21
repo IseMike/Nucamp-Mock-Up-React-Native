@@ -1,22 +1,22 @@
 import RenderMenuItem from '../features/menuItems/RenderMenuItem';
-import { useEffect, useState } from 'react';
+import { decrementQuantity, incrementQuantity, selectMenuItemById } from '../features/cart/cartSlice';
+import { useDispatch, useSelector } from "react-redux";
 
 const MenuItemInfoScreen = ({ route }) => {
-      const { menuItem, updateMenuItem } = route.params;
-      const [currentMenuItem, setMenuItem] = useState(menuItem);
+      const { menuItem } = route.params;
+      const selectMenuItem = useSelector(selectMenuItemById(menuItem.id))
+      console.log('-------------------------------------------------')
+      console.log(selectMenuItem);
+      const dispatch = useDispatch();
 
 
       const increaseQuantity = () => {
-            const updatedMenuItem = { ...currentMenuItem, quantity: currentMenuItem.quantity + 1 };
-            setMenuItem(updatedMenuItem);
-            updateMenuItem(updatedMenuItem);
+            dispatch(incrementQuantity(selectMenuItem))
       };
 
       const decreaseQuantity = () => {
-            if (currentMenuItem.quantity > 0) {
-                  const updatedMenuItem = { ...currentMenuItem, quantity: currentMenuItem.quantity - 1 };
-                  setMenuItem(updatedMenuItem);
-                  updateMenuItem(updatedMenuItem);
+            if (selectMenuItem.quantity > 0) {
+                  dispatch(decrementQuantity(selectMenuItem))
             };
       };
 
@@ -24,7 +24,7 @@ const MenuItemInfoScreen = ({ route }) => {
 
       return (
             <RenderMenuItem
-                  menuItem={currentMenuItem}
+                  menuItem={selectMenuItem}
                   increaseQuantity={increaseQuantity}
                   decreaseQuantity={decreaseQuantity}
             />
